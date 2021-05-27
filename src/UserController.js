@@ -51,7 +51,7 @@ const userController = Router()
 
 /**
  * @swagger
- * /:user/list:
+ * /{user}/list:
  *   get:
  *     summary: Retrieve the list of ToDo items for the given user
  *     description: Retrieve the list of ToDo items for the given user.
@@ -61,7 +61,7 @@ const userController = Router()
  *         schema:
  *           type: string
  *         required: true
- *         description: UUID v4 of the user
+ *         description: Name of the user
  *     responses:
  *       200:
  *         description: A list of ToDo items.
@@ -80,7 +80,7 @@ userController.get('/:user/list', (req, res) => {
 
 /**
  * @swagger
- * /:user/list:
+ * /{user}/list:
  *   patch:
  *     summary: Replace the list of ToDo items for the given user
  *     description: Replace the list of ToDo items for the given user. It expects the complete list of items to store. Previous data will be erased.
@@ -90,7 +90,7 @@ userController.get('/:user/list', (req, res) => {
  *         schema:
  *           type: string
  *         required: true
- *         description: UUID v4 of the user
+ *         description: Name of the user
  *     requestBody:
  *       required: true
  *       content:
@@ -110,6 +110,11 @@ userController.get('/:user/list', (req, res) => {
  *                 $ref: '#/components/schemas/ToDo Item'
  */
 userController.patch('/:user/list', (req, res) => {
+  if (!Array.isArray(req.body)) {
+    res.status(400).send()
+    return
+  }
+
   const { user } = req.params
   const items = req.body || []
 
@@ -120,7 +125,7 @@ userController.patch('/:user/list', (req, res) => {
 
 /**
  * @swagger
- * /:user/list:
+ * /{user}/list:
  *   delete:
  *     summary: Delete the list of ToDo items for the given user
  *     description: Delete the list of ToDo items for the given user.
@@ -130,7 +135,7 @@ userController.patch('/:user/list', (req, res) => {
  *         schema:
  *           type: string
  *         required: true
- *         description: UUID v4 of the user
+ *         description: Name of the user
  *     responses:
  *       204:
  *         description: The resource was deleted successfully.
@@ -140,7 +145,7 @@ userController.delete('/:user/list', (req, res) => {
 
   delete lists[user]
 
-  res.status(204)
+  res.status(204).send()
 })
 
 module.exports = userController
