@@ -25,4 +25,10 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - run: yarn test
+    - run: |
+        yarn test
+        yarn pack
+    - name: Release
+      uses: Hs1r1us/Release-AIO@v1.0
+      with:
+        asset_files: todo-list-server-*.tgz
