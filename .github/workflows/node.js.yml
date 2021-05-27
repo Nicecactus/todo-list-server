@@ -29,7 +29,10 @@ jobs:
         yarn install
         yarn test
         yarn pack
+    - name: Set current date as env variable
+      run: echo "NOW::$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
     - name: Release
       uses: Hs1r1us/Release-AIO@v1.0
       with:
+        tag_name: $NOW
         asset_files: todo-list-server-*.tgz
