@@ -1,0 +1,26 @@
+{
+    "definition": {
+        "openapi": "3.0.0",
+        "info": {
+            "title": "ToDo List Server API",
+            "description": "This is a simple API of the ToDo List Server for Nicecactus technical test",
+            "license": {
+                "name": "MIT",
+                "url": "https://spdx.org/licenses/MIT.html"
+            },
+            "contact": {
+                "name": "ToDo List Server",
+                "url": "https://nicecactus.gg",
+                "email": "technology@nicecactus.gg"
+            }
+        },
+        "servers": [
+            {
+                "url": "http://localhost:7060"
+            }
+        ]
+    },
+    "apis": [
+        "./src/*Controller.js"
+    ]
+}
