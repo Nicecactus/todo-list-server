@@ -27,15 +27,16 @@ jobs:
     - run: |
         yarn install
         yarn test
-        yarn pack
+        yarn pack --filename todo-list-server.tgz
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
       with:
         name: ToDo List Server archive
         path: |
-          todo-list-server-*.tgz
+          todo-list-server.tgz
     - name: Update release
       uses: johnwbyrd/update-release@v1.0.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        files: todo-list-server-*.tgz
+        files: |
+          todo-list-server.tgz
